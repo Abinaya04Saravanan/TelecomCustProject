@@ -1,79 +1,72 @@
+// src/components/SignupPage.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function SignupPage() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.password) return;
-    setSubmitted(true); // pretend we sent it to the server
+    setError("");
+    if (!form.name || !form.email || !form.password || !form.confirm) {
+      setError("Please fill all fields.");
+      return;
+    }
+    if (form.password !== form.confirm) {
+      setError("Passwords do not match.");
+      return;
+    }
+    // pretend to send to server
+    setSubmitted(true);
   };
-
+    
   return (
-    <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-      <div className="card shadow p-4 w-100" style={{ maxWidth: "24rem", borderRadius: "1rem" }}>
-        <h3 className="mb-3 fw-bold">Create your account</h3>
+    <div className="auth-wrapper">
+      <div className="auth-card">
+        <img src="/brand-logo.png" alt="brand" className="brand-logo" onError={(e)=>{e.target.style.display='none'}} />
+        <div className="auth-title">Create an account</div>
+        <div className="auth-sub">Sign up and manage your services</div>
 
         {submitted ? (
           <>
             <div className="alert alert-success">Signup successful! Welcome, {form.name}.</div>
-            <div className="text-center">
-              <Link to="/" className="btn btn-primary w-100">Go to Login</Link>
+            <div className="d-grid">
+              <Link to="/" className="btn btn-ghost">Go to Login</Link>
             </div>
           </>
         ) : (
-          <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit} noValidate>
+            {error && <div className="alert alert-danger">{error}</div>}
+
             <div className="mb-3">
-              <label className="form-label" htmlFor="name">Full Name</label>
-              <input
-                id="name"
-                name="name"
-                className="form-control"
-                placeholder="Your name"
-                value={form.name}
-                onChange={onChange}
-                required
-              />
+              <label htmlFor="name" className="form-label small-link">Full name</label>
+              <input id="name" name="name" className="form-control" placeholder="Your full name" value={form.name} onChange={onChange} required />
             </div>
 
             <div className="mb-3">
-              <label className="form-label" htmlFor="email">Email ID</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                className="form-control"
-                placeholder="you@example.com"
-                value={form.email}
-                onChange={onChange}
-                required
-              />
+              <label htmlFor="email" className="form-label small-link">Email ID</label>
+              <input id="email" name="email" type="email" className="form-control" placeholder="you@example.com" value={form.email} onChange={onChange} required />
             </div>
 
-            <div className="mb-4">
-              <label className="form-label" htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                className="form-control"
-                placeholder="Choose a strong password"
-                value={form.password}
-                onChange={onChange}
-                required
-              />
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label small-link">Password</label>
+              <input id="password" name="password" type="password" className="form-control" placeholder="Create a strong password" value={form.password} onChange={onChange} required />
             </div>
 
-            <button type="submit" className="btn btn-primary w-100 mb-3">Sign up</button>
-
-            <div className="text-center small">
-              Already have an account?{" "}
-              <Link to="/" className="text-decoration-none fw-semibold">Log in</Link>
+            <div className="mb-3">
+              <label htmlFor="confirm" className="form-label small-link">Confirm password</label>
+              <input id="confirm" name="confirm" type="password" className="form-control" placeholder="Confirm password" value={form.confirm} onChange={onChange} required />
             </div>
+
+            <div className="d-grid">
+              <button type="submit" className="auth-btn mb-2">Sign up</button>
+              <Link to="/" className="btn btn-ghost">Have an account? Log in</Link>
+            </div>
+
           </form>
         )}
       </div>
