@@ -170,6 +170,9 @@ body::before {
   color: var(--muted);
   font-size: .85rem;
 }
+.form-label.small-link {
+  font-weight: 700;
+}
 
 /* form footer */
 .form-footer {
@@ -206,6 +209,8 @@ body::before {
 .auth-btn:hover {
   background: #5633A5; /* Slightly darker on hover */
 }
+
+
 
 /* responsive tweaks */
 @media (max-width: 480px){

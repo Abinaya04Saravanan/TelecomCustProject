@@ -1,25 +1,67 @@
 // src/App.js
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import SignupPage from "./components/SignupPage";
-import Navbar from "./components/Navbar"; // import your navbar
-import './index.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import Dashboard from './pages/Dashboard';
 
-function App() {
+export default function App() {
   return (
     <Router>
-      <Navbar /> {/* Navbar always visible */}
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
 }
 
-export default App;
+
+
+// // src/App.js
+// import React from "react";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import LoginPage from "./components/LoginPage"; 
+// import SignupPage from "./components/SignupPage";
+// import Dashboard from "./pages/Dashboard";
+
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<LoginPage />} />   {/* Default landing page */}
+//         <Route path="/signup" element={<SignupPage />} />
+//         <Route path="/dashboard" element={<Dashboard />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
+
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import LoginPage from "./pages/LoginPage";
+// import SignupPage from "./pages/SignupPage";
+// import Navbar from "./components/Navbar"; // import your navbar
+// import './index.css';
+
+
+// function App() {
+//   return (
+//     <Router>
+//       <Navbar /> {/* Navbar always visible */}
+//       <Routes>
+//         <Route path="/" element={<LoginPage />} />
+//         <Route path="/signup" element={<SignupPage />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
 
 
 // // src/App.js
